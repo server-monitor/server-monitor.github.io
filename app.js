@@ -69,7 +69,7 @@ $(document).ready(function () {
       var markers = [
         L.marker([34.0522300, -118.2436800], { riseOnHover: true, })
          .addTo(map)
-         .bindPopup(M3UInfobox.format(
+         .bindPopup(M3UInfobox.formatYourLocation(
             { city_name: 'LA/OC', region_name: 'CA' }, { name: 'Center' })
          ),
       ];
