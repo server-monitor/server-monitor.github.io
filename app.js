@@ -42,7 +42,7 @@ $(document).ready(function () {
     load: function (params) {
       var map = this.initMap(params.mapAreaId);
 
-      // var bounds = this.loadMarkers(map, params.meetupEvents);
+      // var bounds = this.loadMarkers(map, params.locIGroups);
       this.showMap(map, bounds);
     },
 
@@ -62,15 +62,15 @@ $(document).ready(function () {
       return map;
     },
 
-    loadMarkers: function (map, meetupEvents) {
+    loadMarkers: function (map, locIGroups) {
       var bounds = [];
-      var listLength = meetupEvents.length;
+      var listLength = locIGroups.length;
 
       var markers = [];
 
       for (var i = 0; i < listLength; i++) {
-        var meetupEvent = meetupEvents[i];
-        var markerInput = meetupEvent.venue;
+        var locIGroup = locIGroups[i];
+        var markerInput = locIGroup.venue;
 
         var latLong = L.latLng(markerInput.latitude, markerInput.longitude);
         bounds.push(latLong);
@@ -89,7 +89,7 @@ $(document).ready(function () {
         var marker = L.marker([markerInput.latitude, markerInput.longitude], {
           icon: L.icon(iconProp), riseOnHover: true,
         }).addTo(map)
-          .bindPopup(M3UInfobox.format(meetupEvent.events, markerInput));
+          .bindPopup(M3UInfobox.format(locIGroup.events, markerInput));
 
         markers.push(marker);
       }
@@ -113,4 +113,6 @@ $(document).ready(function () {
   //   $('ul#todo-list').html(todos);
   //   e.preventDefault();
   // });
+
+  M3ULeaflet.load({ locIGroups: [] });
 });
