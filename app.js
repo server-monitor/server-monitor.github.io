@@ -29,7 +29,7 @@ $(document).ready(function () {
       var infoBoxClass = 'infobox';
 
       return '<div class="' + infoBoxClass + '">' +
-          '<p>Your location</p>' +
+          '<p>...</p>' +
           'Name: ' + yourInfo.name + '<br>' +
           'City: ' + userGeoData.city_name + '<br>' +
           'State/Region: ' + userGeoData.region_name +
@@ -70,7 +70,7 @@ $(document).ready(function () {
         L.marker([34.0522300, -118.2436800], { riseOnHover: true, })
          .addTo(map)
          .bindPopup(M3UInfobox.formatYourLocation(
-            { city_name: 'LA/OC', region_name: 'CA' }, { name: 'Center' })
+            { city_name: 'Los Angeles', region_name: 'CA' }, { name: 'Downtown' })
          ),
       ];
 
