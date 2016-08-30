@@ -133,11 +133,6 @@ $(document).ready(function () {
         map, marker, infowindow, M3UInfobox.formatYourLocation(userGeoData, userInfo)
       );
 
-      // For the per marker info window setting.
-      // attachInfoWindow(
-      //   map, marker, M3UInfobox.format(events, userGeoData)
-      // );
-
       bounds.extend(marker.getPosition());
 
       return marker;
@@ -147,5 +142,13 @@ $(document).ready(function () {
   M3ULeaflet.load({
     locIGroups: [
     ],
+  });
+
+  $('form#new-todo').submit(function (e) {
+    var todos = $('ul#todo-list').html();
+    todos += '<li>' + e.target[0].value + '</li>';
+    $("input[type='text']").val('');
+    $('ul#todo-list').html(todos);
+    e.preventDefault();
   });
 });
