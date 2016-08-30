@@ -66,7 +66,13 @@ $(document).ready(function () {
       var bounds = [];
       var listLength = locIGroups.length;
 
-      var markers = [];
+      var markers = [
+        L.marker([34.0522300, -118.2436800], { riseOnHover: true, })
+         .addTo(map)
+         .bindPopup(M3UInfobox.format(
+            { city_name: 'LA/OC', region_name: 'CA' }, { name: 'Center' })
+         ),
+      ];
 
       for (var i = 0; i < listLength; i++) {
         var locIGroup = locIGroups[i];
@@ -103,6 +109,38 @@ $(document).ready(function () {
       } else {
         map.fitBounds(L.latLngBounds(bounds));
       }
+    },
+
+    createYourLocationMarker: function (
+      map, userGeoData, userInfo, title, bounds, infowindow
+    ) {
+      var markerInfo = {
+        title: title,
+        position: {
+          lat: parseFloat(userGeoData.latitude),
+          lng: parseFloat(userGeoData.longitude),
+        },
+
+        // icon: '???',
+        map: map,
+      };
+
+      if (railsEnv === 'test') markerInfo.optimized = false;
+
+      var marker = new google.maps.Marker(markerInfo);
+
+      this.attachInfoWindow(
+        map, marker, infowindow, M3UInfobox.formatYourLocation(userGeoData, userInfo)
+      );
+
+      // For the per marker info window setting.
+      // attachInfoWindow(
+      //   map, marker, M3UInfobox.format(events, userGeoData)
+      // );
+
+      bounds.extend(marker.getPosition());
+
+      return marker;
     },
   };
 
