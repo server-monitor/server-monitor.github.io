@@ -1,6 +1,7 @@
 $(document).ready(function () {
   var M3UInfobox = {
     format: function (events, marker) {
+      console.log("HELLO");
       var infoBoxClass = 'infobox';
 
       var titles = events.map(function (event, ix) {
@@ -105,14 +106,6 @@ $(document).ready(function () {
       }
     },
   };
-
-  // $('form#new-todo').submit(function(e){
-  //   var todos = $('ul#todo-list').html();
-  //   todos += '<li>' + e.target[0].value + '</li>';
-  //   $("input[type='text']").val('')
-  //   $('ul#todo-list').html(todos);
-  //   e.preventDefault();
-  // });
 
   M3ULeaflet.load({ locIGroups: [] });
 });
