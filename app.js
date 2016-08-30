@@ -47,7 +47,7 @@ $(document).ready(function () {
     },
 
     initMap: function (mapAreaId) {
-      mapAreaId = mapAreaId || 'map';
+      mapAreaId = mapAreaId || 'map_canvas';
 
       var upper = $('#' + mapAreaId).parent();
       $('#' + mapAreaId).remove();
