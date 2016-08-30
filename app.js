@@ -1,7 +1,6 @@
 $(document).ready(function () {
   var M3UInfobox = {
     format: function (events, marker) {
-      console.log("HELLO");
       var infoBoxClass = 'infobox';
 
       var titles = events.map(function (event, ix) {
@@ -43,7 +42,7 @@ $(document).ready(function () {
     load: function (params) {
       var map = this.initMap(params.mapAreaId);
 
-      // var bounds = this.loadMarkers(map, params.locIGroups);
+      var bounds = this.loadMarkers(map, params.locIGroups);
       this.showMap(map, bounds);
     },
 
@@ -107,5 +106,8 @@ $(document).ready(function () {
     },
   };
 
-  M3ULeaflet.load({ locIGroups: [] });
+  M3ULeaflet.load({
+    locIGroups: [
+    ],
+  });
 });
