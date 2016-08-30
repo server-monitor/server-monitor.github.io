@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8">
     <title>Server Monitor</title>
+
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="app.css" />
   </head>
 
   <body>
@@ -11,17 +15,18 @@
     </div>
 
     <div class="form">
-      <h5>Errands to run around the LA area</h5>
-      <form id="new-todo" action='/'>
-        <input type='text'>
-        <input type='submit' value="Add an errand">
+      <form id="new-todo" class="pure-form" action='/'>
+        <b>To-do's in LA</b>
+        <hr>
+        <input id="new_todo_input" type="text" placeholder="New to-do">
+        <input type="submit" class="pure-button pure-button-primary" value="Add">
       </form>
       <ul id="todo-list"></ul>
     </div>
   </body>
+
   <script src="https://code.jquery.com/jquery-3.1.0.js" integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk=" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.3/dist/leaflet.css" />
   <script src="https://npmcdn.com/leaflet@1.0.0-rc.3/dist/leaflet.js"></script>
-  <link rel="stylesheet" href="app.css" />
   <script src="app.js"></script>
 </html>

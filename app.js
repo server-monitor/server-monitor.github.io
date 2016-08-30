@@ -146,7 +146,12 @@ $(document).ready(function () {
 
   $('form#new-todo').submit(function (e) {
     var todos = $('ul#todo-list').html();
-    todos += '<li>' + e.target[0].value + '</li>';
+    console.log(e.target);
+
+    var newTodo = e.target[0].value;
+
+    if (newTodo) todos += '<li>' + newTodo + '</li>';
+
     $("input[type='text']").val('');
     $('ul#todo-list').html(todos);
     e.preventDefault();

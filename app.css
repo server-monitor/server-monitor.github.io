@@ -1,4 +1,21 @@
 
+body {
+  font-family: helvetica, arial, sans-serif;
+  color: white;
+}
+
+.stubborn {
+  color: white;
+}
+
+input {
+  color: black;
+}
+
+#new_todo_input {
+  width: 82%;
+}
+
 #container {
   height: 100%;
   width: 100%;
@@ -21,10 +38,8 @@
   border-radius: 8px;
   width: 35%;
   position: relative;
-  left: 40px;
+  top: 5px;
+  left: 44px;
   background-color: rgba(0, 128, 0, 0.75);
-  // background-color: rgba(235, 16, 30, 0.70);
-  // Original color color-picked from the site.
-  // background-color: rgba(208, 16, 49, 0.55);
   z-index: 2;
 }
