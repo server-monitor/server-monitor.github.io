@@ -9,20 +9,25 @@ $(document).ready(function () {
           num = ix + 1 + '. ';
         }
 
-        var date = new Date();
-        date.setTime(event.time);
+        var date = Date.now();
 
-        return '<p><a href="' + event.link + '" target="_blank">' +
-                  event.name + '</a><br>' + date + '<br></p>';
+        // date.setTime(event.time);
+
+        return '<p><a href="' + event.link + '">' +
+                  event.name + '</a><br></p>';
+
+        // return '<p><a href="' + event.link + '" target="_blank">' +
+        //           event.name + '</a><br>' + date + '<br></p>';
       }).join('');
 
       return '<div class="' + infoBoxClass + '">' +
-          titles +
-          marker.name + '<br>' +
-          marker.address + '<br>' +
-          marker.city + ', ' + marker.state +
+          'Latitude:longitude' + titles +
         '</div>'
       ;
+
+      // marker.name + '<br>' +
+      // marker.address + '<br>' +
+      // marker.city + ', ' + marker.state +
     },
 
     formatYourLocation: function (userGeoData, yourInfo) {
@@ -41,9 +46,8 @@ $(document).ready(function () {
   var M3ULeaflet = {
     load: function (params) {
       var map = this.initMap(params.mapAreaId);
-
-      var bounds = this.loadMarkers(map, params.locIGroups);
-      this.showMap(map, bounds);
+      var geo = this.loadMarkers(map, params.locIGroups);
+      this.showMap(map, geo.bounds, geo.markers);
     },
 
     initMap: function (mapAreaId) {
@@ -82,7 +86,7 @@ $(document).ready(function () {
         bounds.push(latLong);
 
         var iconProp = {
-          iconUrl: '/dog.png',
+          iconUrl: '/waldo.png',
 
           // iconUrl: 'https://a248.e.akamai.net/' +
           //   'secure.meetupstatic.com/s/img/94156887029318281691566697/logo.svg',
@@ -94,18 +98,28 @@ $(document).ready(function () {
 
         var marker = L.marker([markerInput.latitude, markerInput.longitude], {
           icon: L.icon(iconProp), riseOnHover: true,
-        }).addTo(map)
-          .bindPopup(M3UInfobox.format(locIGroup.events, markerInput));
+        });
+
+        marker.addTo(map)
+              .bindPopup(M3UInfobox.format(locIGroup.events, markerInput));
+
+        // var marker = L.marker([markerInput.latitude, markerInput.longitude], {
+        //   icon: L.icon(iconProp), riseOnHover: true,
+        // }).addTo(map)
+        //   .bindPopup(M3UInfobox.format(locIGroup.events, markerInput));
 
         markers.push(marker);
       }
 
-      return bounds;
+      return { bounds: bounds, markers: markers };
     },
 
-    showMap: function (map, bounds) {
+    showMap: function (map, bounds, markers) {
       if (bounds.length === 0) {
         map.setView(new L.LatLng(34.0522300, -118.2436800), 12);
+      } else if (bounds.length === 1) {
+        var firstNotCenter = markers[1].getLatLng();
+        map.setView(new L.LatLng(firstNotCenter.lat, firstNotCenter.lng), 5);
       } else {
         map.fitBounds(L.latLngBounds(bounds));
       }
@@ -127,11 +141,11 @@ $(document).ready(function () {
 
       if (railsEnv === 'test') markerInfo.optimized = false;
 
-      var marker = new google.maps.Marker(markerInfo);
+      // var marker = new google.maps.Marker(markerInfo);
 
-      this.attachInfoWindow(
-        map, marker, infowindow, M3UInfobox.formatYourLocation(userGeoData, userInfo)
-      );
+      // this.attachInfoWindow(
+      //   map, marker, infowindow, M3UInfobox.formatYourLocation(userGeoData, userInfo)
+      // );
 
       bounds.extend(marker.getPosition());
 
@@ -146,14 +160,35 @@ $(document).ready(function () {
 
   $('form#new-todo').submit(function (e) {
     var todos = $('ul#todo-list').html();
-    console.log(e.target);
-
     var newTodo = e.target[0].value;
 
     if (newTodo) todos += '<li>' + newTodo + '</li>';
 
     $("input[type='text']").val('');
     $('ul#todo-list').html(todos);
+    e.preventDefault();
+  });
+
+  function randomNumberFromRange(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+  $('.travel').click(function (e) {
+    var ranLat = randomNumberFromRange(-85, 85);
+    var ranLon = randomNumberFromRange(-180, 180);
+
+    // US only
+    // var ranLat = randomNumberFromRange(24, 49);
+    // var ranLon = randomNumberFromRange(-124, -66);
+
+    M3ULeaflet.load({
+      locIGroups: [
+        {
+          venue: { latitude: ranLat, longitude: ranLon },
+          events: [{ name: ranLat + ':' + ranLon, link: '/' }],
+        },
+      ],
+    });
     e.preventDefault();
   });
 });

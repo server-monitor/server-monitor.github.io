@@ -43,3 +43,15 @@ input {
   background-color: rgba(0, 128, 0, 0.75);
   z-index: 2;
 }
+
+.travel_container {
+  padding: 10px;
+  border-radius: 8px;
+  width: 11.2%;
+  // width: 14.2%;
+  position: relative;
+  top: 5px;
+  left: 44px;
+  background-color: rgba(0, 128, 0, 0.75);
+  z-index: 2;
+}
