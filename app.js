@@ -86,7 +86,7 @@ $(document).ready(function () {
         bounds.push(latLong);
 
         var iconProp = {
-          iconUrl: '/waldo.png',
+          iconUrl: '/planet-express-ship.png',
 
           // iconUrl: 'https://a248.e.akamai.net/' +
           //   'secure.meetupstatic.com/s/img/94156887029318281691566697/logo.svg',
